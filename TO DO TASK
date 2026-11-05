@@ -1,0 +1,4 @@
+Instalasi dan verifikasi seluruh alat analisis & administrasi jaringan
+
+- Skrip apt-get install untuk paket: nmap, traceroute, net-tools, iperf3, tcpdump, dnsutils, openvpn, putty, curl.
+- Pengujian dependensi agar tidak ada paket bermasalah saat build.
