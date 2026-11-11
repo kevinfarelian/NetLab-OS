@@ -1,3 +1,0 @@
-Konfigurasi hak akses non-root Wireshark & hardening dasar.	
-- Skrip pembuatan grup wireshark dan penambahan pengguna default (usermod -aG wireshark).
-- Konfigurasi dpkg-reconfigure wireshark-common dan pemberian capabilities pada /usr/bin/dumpcap via setcap.
