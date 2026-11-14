@@ -1,0 +1,5 @@
+Pengaturan dasar sistem, repositori lokal, dan zona waktu.
+
+- Skrip konfigurasi /etc/apt/sources.list ke mirror Indonesia (UGM / Data Utama).
+- Skrip penentuan zona waktu Asia/Jakarta via timedatectl/ln -sf.
+- Pembuatan skrip orchestrator utama (setup.sh) untuk Cubic.
