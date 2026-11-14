@@ -1,0 +1,6 @@
+┌── Desired=Unknown/Install/Remove/Purge/Hold
+│┌─ Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+││┌ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+│││ Name           Version              Architecture Description
+├┼┼─══════════════─════════════════════─════════════─═════════════════════════════════
+ii  bind9-dnsutils 1:9.20.24-1ubuntu0.5 amd64        Clients provided with BIND 9

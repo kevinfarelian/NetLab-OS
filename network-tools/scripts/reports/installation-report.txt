@@ -1,0 +1,20 @@
+======================================
+       NETWORK TOOLS VERIFICATION
+======================================
+[INSTALLED] nmap
+[INSTALLED] traceroute
+[INSTALLED] net-tools
+[INSTALLED] iperf3
+[INSTALLED] tcpdump
+[INSTALLED] openvpn
+[INSTALLED] putty
+[INSTALLED] curl
+
+======================================
+             SUMMARY
+======================================
+Total packages : 8
+Installed      : 8
+Failed         : 0
+RESULT: ALL TOOLS INSTALLED
+
