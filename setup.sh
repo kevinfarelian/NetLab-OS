@@ -24,6 +24,13 @@ else
     echo "[-] Peringatan: set-timezone.sh tidak ditemukan!"
 fi
 
+# 3. Instalasi Paket Jaringan (NetLab-Tools)
+if [ -f "./install-net-tools.sh" ]; then
+    ./install-net-tools.sh
+else
+    echo "[-] Peringatan: install-net-tools.sh tidak ditemukan!"
+fi
+
 echo "=========================================="
-echo " Konfigurasi Dasar & Mirror Berhasil! "
+echo " Seluruh Konfigurasi & Tools Berhasil! "
 echo "=========================================="
