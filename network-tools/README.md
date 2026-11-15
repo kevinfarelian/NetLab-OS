@@ -1,7 +1,7 @@
 # Network Tools
 
 ## 1. Deskripsi Project
-Network Tools merupakan project berbasis Linux Ubuntu yang berisi kumpulan tools untuk membantu pengguna melakukan pemeriksaan, pemantauan, dan pengelolaan jaringan komputer.
+Network Tools merupakan project berbasis Linux Ubuntu yang berisi kumpulan tools untuk membantu pengguna melFakukan pemeriksaan, pemantauan, dan pengelolaan jaringan komputer.
 
 ## 2. Tujuan Project
 - Mempermudah pemeriksaan koneksi jaringan.
