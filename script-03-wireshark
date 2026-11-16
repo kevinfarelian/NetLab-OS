@@ -1,0 +1,56 @@
+#!/bin/bash
+set -e
+
+echo "=========================================================="
+echo "[3/4] Konfigurasi Wireshark Non-Root & Hardening Dasar..."
+echo "=========================================================="
+
+# 1. Pastikan paket wireshark dan libcap2-bin (penyedia perintah setcap) terpasang
+DEBIAN_FRONTEND=noninteractive apt-get install -y wireshark tshark libcap2-bin ufw
+
+# 2. Konfigurasi otomatis debconf & dpkg-reconfigure wireshark-common
+echo "-> Mengatur konfigurasi non-interaktif wireshark-common..."
+echo "wireshark-common wireshark-common/install-setuid boolean true" | debconf-set-selections
+DEBIAN_FRONTEND=noninteractive dpkg-reconfigure wireshark-common
+
+# 3. Pembuatan grup wireshark dan penambahan pengguna default
+echo "-> Membuat grup wireshark dan mengatur hak akses pengguna..."
+groupadd -f wireshark
+
+# Tambahkan seluruh user lokal yang sudah ada (UID >= 1000) ke grup wireshark
+for USER_NAME in $(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd); do
+    usermod -aG wireshark "$USER_NAME"
+    echo "   User '$USER_NAME' ditambahkan ke grup wireshark."
+done
+
+# Konfigurasi otomatis agar user baru yang dibuat saat instalasi ISO otomatis masuk grup wireshark
+if [ -f /etc/adduser.conf ]; then
+    sed -i 's/^#EXTRA_GROUPS=.*/EXTRA_GROUPS="wireshark"/' /etc/adduser.conf
+    sed -i 's/^#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/' /etc/adduser.conf
+fi
+
+# 4. Pembatasan hak akses & pemberian capabilities pada /usr/bin/dumpcap via setcap
+echo "-> Mengatur kepemilikan dan Linux capabilities pada /usr/bin/dumpcap..."
+if [ -f /usr/bin/dumpcap ]; then
+    chown root:wireshark /usr/bin/dumpcap
+    chmod 750 /usr/bin/dumpcap
+    setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap
+fi
+
+# 5. Hardening Dasar Sistem (Firewall & Parameter Kernel Jaringan)
+echo "-> Menerapkan hardening dasar jaringan..."
+ufw default deny incoming
+ufw default allow outgoing
+ufw --force enable
+
+cat <<EOF > /etc/sysctl.d/99-netlab-hardening.conf
+# Proteksi terhadap serangan SYN Flood
+net.ipv4.tcp_syncookies = 1
+# Abaikan paket ICMP broadcast (mencegah Smurf attack)
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+# Tolak paket source-routed
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
+EOF
+
+echo "[OK] Konfigurasi Wireshark non-root dan hardening dasar selesai."
