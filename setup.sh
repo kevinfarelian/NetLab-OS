@@ -30,7 +30,12 @@ if [ -f "./install-net-tools.sh" ]; then
 else
     echo "[-] Peringatan: install-net-tools.sh tidak ditemukan!"
 fi
-
+# 4. Konfigurasi Bootloader GRUB
+if [ -f "./configure-grub.sh" ]; then
+    ./configure-grub.sh
+else
+    echo "[-] Peringatan: configure-grub.sh tidak ditemukan!"
+fi
 echo "=========================================="
 echo " Seluruh Konfigurasi & Tools Berhasil! "
 echo "=========================================="
